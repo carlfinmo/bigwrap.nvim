@@ -1,4 +1,6 @@
-vim.api.nvim_create_user_command("WrapLines", function(opts)
+local M = {}
+
+function M.wraplines(opts)
 	-- Default values for wrap character and line end
 	local wrap_char = opts.fargs[1] or "'" -- Default to single quote if no character is provided
 	local line_end = opts.fargs[2] or "" -- Optional line end, default to empty string
@@ -45,11 +47,6 @@ vim.api.nvim_create_user_command("WrapLines", function(opts)
 		range_start = vim.fn.line("$")
 		range_end = vim.fn.line("$")
 	end
-end, {
-	range = true,
-	nargs = "*", -- Accept up to two arguments
-	complete = function(ArgLead, Cmdline, CursorPos)
-		-- Provide auto-completion for the wrap character and optional comma
-		return { "'", '"', "(", "[", "{", ",", "join" }
-	end,
-})
+end
+
+return M
